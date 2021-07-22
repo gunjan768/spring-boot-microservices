@@ -1,0 +1,9 @@
+. CrudRepository<T, G> returns an Iterator interface type where as JpaRepository<T, G> extends the CrudRepository and have more features like it returns an Optional.
+
+--> To have basic method in our repository interface (which extends either CrudRepository<T, G> or JpaRepository<T, G>), we don't have to implement (define the body) 
+the body (we can define the default or static method in the interface), just declare the method name with the "findByProperty" name format and the Spring Data JPA
+will implement the method for us. Remember that method name should be in camel case.
+
+--> We want to write method for the field which is an instance of some class for example: class Course { Topic topic; }. We want to write a db method for "topic"
+instance. Topic { String id; }. in this case we need to also mention the property of a class like here we need to mentiond the "id" field if we want to find by id.
+So final method will look like: findByTopicId(String topicId); 

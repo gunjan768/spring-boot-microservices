@@ -1,0 +1,44 @@
+OAuh as name suggests it is related to Authentication or Authorization ?? OAuth is used for Authorization It was originally created not for service to authorize a person, 
+it was meant for service to authorize another service. But it has been developed and is now days it is also used fot Authentication.
+
+Q) Then question arises, why a service wants to authorize anotherservice ?
+--> Take an example of Photo printing website where somebody uploads a photo and wants the print of that. Normally person shares a Google Drive link for photo instead
+of keeping photos in a machine (using db). To implement Google Drive (GD) feature we need to connect user GD's account and access their files. For this we need Google
+Authentication and how can we write code for our website that can authenticate with Google on behalf of it's users. One way is to do that by asking user username and
+password and get access to user's GD account. But does user really give his/her username and password ? Nope even if we promise that we will not access any file other
+than photos, user will not provide it as how can he be sure that we will keep our promise ? Nope no chance.
+
+GD has a share feature which he can share (link) to us ? What if user doesn't want to share his photo as anyone with the link can access the photo. Or think if
+sharing feature dosn't exist (like if we want the list of user friends so that we can send invites to application). How do we have 3rd party service with the Google
+service without user providing their credentials ? This is when OAuh comes in.
+
+Flow with example ----------------->
+. OAuh in general is the Authorization mechanism where services can authorize against each other on your behalf once you have given them permission. This is  often
+referred to as delegated access. Services need to follow OAuh flow. Example: user is logged in both PPS and GDS services. PPS need to acces GD. Each service trust
+the user but they don't trust each other. But we need both services to work with each other. If both the services has OAuh implemented then your service (PPS) goes
+to GDS hey I need this user file then Google does something interesting. Google goes to user and say there is a service bugging me and saying it wants to access some
+your files, it that legit ? Do you trust it and shall I allow it whatever it asking (like access to some of your files) ? User will see the screen and he will ask
+who is asking for the permission and what are the list of permissions that the service wants and on that basis user will either allow or deny the permission. Google
+will say that my user has verified and allow these permissions so okay service you can have access. And Google gives a service key token called an Authorization token
+that contain just the allowed permissions. Think this token as a key with limited permissions. Now everytime PPS needs to access GD of that user, it just hands the
+token and says I need to access this file. Google will verify the token and allow access. Token contains user-allowed permissions (data) and is secured (cannot be
+tampered) means it can only be verifed but cannot be modified. Token is of JWT format.
+
+********************************************************************************************************************************************************************
+
+Some terms related to OAuh:
+
+1) Resource: sometimes also referred as protected Resource. It is the info which service wants to access like your photos.
+2) Resource Owner: is the person who has access to resource which is user. Like photo owner is the User. This is also the person (entity) who grant access to a
+protected resource to the 3rd party service i.e. again user only like we give access to our resource.
+3) Resource Server: Ther server hosting the protected resources like GD (as our photos are in the GD).
+4) Client: An application making protected resource requests on behalf of the resource owner and with its authorization for example PPS in our example.
+
+Who has the burden of security? It's whose responsibility to see that things are happening securly. The person who has the resource handles all 
+that burden. The resource holder has their own best interest to check that resources are secure. So here, it's GD responsibility to take all burden. Resource service
+is coupled with the Authorization Server which is responsible for making sure whoever is accessing the Resource service is authorized. So GD implements OAuh and also
+this Authorization server which tkaes care of the authorization.
+
+5) Authorization server: It is the server issues access tokens to the client.
+
+********************************************************************************************************************************************************************

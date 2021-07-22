@@ -1,0 +1,19 @@
+cloud:
+  aws:
+    region:
+      static: us-east-2
+      auto: false
+    credentials:
+      access-key: AKIAV6XWXK5QN73SQZR7
+      secret-key: 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
+    end-point:
+      uri: https://sqs.us-east-2.amazonaws.com/409613064032/gunjan_emilia_queue
+
+# Add this property to remove error: Failed to connect to service endpoint
+# url: https://stackoverflow.com/questions/59517989/spring-cloud-aws-sqs-fails-to-connect-to-service-endpoint-locally
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error

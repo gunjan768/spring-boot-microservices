@@ -1,0 +1,29 @@
+<p><strong>FAQ: Problems with Injecting Values - Value not returning from ${foo.email}</strong></p><strong></strong><strong>Question</strong><p><strong>
+
+</strong></p><p><strong></strong>I am running the code for Java Configuration and injecting values from props file. However, I'm getting: </p>
+
+<p>${foo.email}<br>${foo.team}</p>
+
+<p>Instead of the actual property values. How can I resolve this?</p>
+
+<p><strong>Answer</strong></p>
+
+<p>This is an issue with Spring versions.</p>
+
+<p>If you are using Spring 4.2 and lower, you will need to add the code in bold.</p>
+
+<p>---</p>
+
+<p>package com.luv2code.springdemo;</p>
+
+<p>import org.springframework.context.annotation.Bean;<br>import org.springframework.context.annotation.Configuration;<br>import org.springframework.context.annotation.PropertySource;<br>import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;</p>
+
+<p>@Configuration<br>// @ComponentScan("com.luv2code.springdemo")<br>@PropertySource("classpath:sport.properties")<br>public class SportConfig {<br>    <br><strong>    // add support to resolve ${...} properties<br>    @Bean<br>    public static PropertySourcesPlaceholderConfigurer<br>                    propertySourcesPlaceHolderConfigurer() {<br>        <br>        return new PropertySourcesPlaceholderConfigurer();<br>    }<br></strong>    <br>    // define bean for our sad fortune service<br>    @Bean<br>    public FortuneService sadFortuneService() {<br>        return new SadFortuneService();<br>    }<br>    <br>    // define bean for our swim coach AND inject dependency<br>    @Bean<br>    public Coach swimCoach() {<br>        SwimCoach mySwimCoach = new SwimCoach(sadFortuneService());<br>        <br>        return mySwimCoach;<br>    }<br>    <br>}<br>----</p>
+
+<p>In Spring 4.3 and higher, they removed this requirement. As a result, you don't need this code.</p>
+
+<p>In the video, I show Spring 4.3, that's why this code is not displayed.</p>
+
+<p>Let me know if that clears it up.</p>
+
+<p>:-)</p><br>

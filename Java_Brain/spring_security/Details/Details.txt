@@ -1,0 +1,42 @@
+Five key concepts in Spring Security:
+
+1) Authentication: Who are you ?
+. By providing user id and password (or pin code, answer to a secret/personal question). This type of authentication is called Knowledge Based Authentication)
+. Possession based Authentication which need user to be possessed by something like phone/text message. Other examples like key cards and badges, Access token device
+. Multi factor Authentication which combines Knowledge and Possession. First verify yourself with your secret (password) and then with text message.
+
+2) Authorization: Can this user do this ? Before Authorization, Authentication is must as we should be aware that who the user is. Beforehand only users are restricted to do certain
+range of works or to access resources based on the users. It is like a bunch of permission that are allowed for a given user. In spring security, this concept of permission is called
+Authority or Granted Authority. User can do this work if he/she is granted an authority to do this work.
+
+3) Principal: Current logged in user or current logged in account. It is that unique information in the account in the system that you tie to a specific person in the context of the 
+application. Once you authenticate with any app say by giving your userId and password, the app establishes the principal and remembers it. App remembers the principal as currently 
+logged in user in the context of the application.
+ 
+4) Role: Someone has to assign authorities for everyone like for store clerk, store manager and this can be tedious. This is where conecpt of Role comes into play. Role is pretty
+much is like a group of authorities that are usually assigned together. Like for sotre clerk we can have role_store_clerk.
+
+5) Granted authority
+
+---> Fine grained permissions are authorities and more course grained grouping of permissions are roles.
+
+. AuthenticationManager: It is something that manages authentication in an app. It has a method called authenticate() that returns a successful authentication or thows an exception.
+It is what that does the authentication. You don't actually work with AuthenticationManager directly but instead work with a builder class called AuthenticationManagerBuilder.
+
+AuthenticationManagerBuilder: You use AuthenticationManagerBuilder to configure what the authentication actually do. Steps are: Get hold of AuthenticationManagerBuilder and then
+configure it. AuthenticationManagerBuilder will first ask you what type of authentication you want? Say you want InMemroy authentication. Then it will ask your for your username,
+password and role. You give a user or give list of users. It will last create a AuthenticationManager which will have all the values you want.
+
+. How to get hold of AuthenticationManagerBuilder? By using overriden configure(AuthenticationManagerBuilder authenticationManagerBuilder) of class WebSecurityConfigurerAdapter
+(you need to extends this class). Spring security framework will call that configure() method and passes in AuthenticationManagerBuilder. 
+
+Q) How Spring Security (SS) works ?
+--> We add spring-starter-security dependency to pom.xml. The way SS adds itself to the request processing is by adding filters. Filter is used in Servlet to intercept requests.
+Filter can do any processing or manipulate request before request goes to the servlet (there are different servlets for different endpoints). We can map one filter to all requests
+(but there is one to one mapping of request and servlet i.e. one request is handled by one servlet).
+
+SB maps own filter called delegating filter proxy, to the filters of SS. If we are not working with SB we have to manually map these filters to intercept all requests (/*).
+We secure the SB to filter level by intercepting all requests then we tell SS what our authentication and authorization requirements are per URL. Delegating filter proxy as name
+suggests doesn't do any work by itself but instead delegates it to a bunch of other SS specific filters to do different things depend on URL being requested or configuration. There
+are more than 6 internal filters and authentication filter is one of them.
+

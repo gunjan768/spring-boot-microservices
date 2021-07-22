@@ -1,0 +1,32 @@
+Spring boot will automatically configure your data source (data source defines db connection info) for you. Based on Maven pom.xml file
+--> JDBC Driver: mysql-connector-java, Spring Data (ORM): spring-boot-starter-data-jpa, DB connection info from application.properties
+
+What is JPA ?
+. The Java Persistence API (JPA) is a specification of Java. It is used to persist data between Java object and relational database. JPA acts as a bridge between object-oriented 
+domain models and relational database systems. As JPA is just a specification, it doesn't perform any operation by itself.
+. Only a specification ---> 1) Defines a set of interfaces 2) Requires an implementation to be usable
+
+Difference b/w JPA and Hibernate: 
+. JPA is a standard, while Hibernate is not. In hibernate, we use Session for handling the persistence of data, while in JPA, we use Entity Manager. The query language in Hibernate is 
+Hibernate Query language, while in JPA, the query language is Java Persistence query language. Hibernate is one of the most JPA providers.
+
+JPA - Vendor Implementations
+JPA specs (list of interfaces): One implementation is Hibernate. They take those interfaces and provide an implementation of those given interfaces
+
+What are Benefits of JPA ?  
+. By having a standard API, you are not locked to vendor's implementation.
+. Maintain a portable, flexible code by coding to JPA spec
+. Can theoretically switch vendor implementations: For ex if vendor ABC stops supporting their product then you can switch to vendor xyz without vendor lock in because you are coding
+to the actual JPA spec
+
+Auto Data Source Configuration
+. In Spring Boot, Hibernate is default implementation of JPA
+. EntityManager is similar to Hibernate SessionFactory
+. EntityManager can serve as a wrapper for Hibernate Session object.
+. We can inject EntityManager into our DAO
+
+What is Spring Data JPA ?
+. Spring Data JPA, part of the larger Spring Data family, makes it easy to easily implement JPA based repositories. This module deals with enhanced support for JPA based data access 
+layers. It makes it easier to build Spring-powered applications that use data access technologies.
+
+In latest version of Spring Boot, using @Autowired annotaion is optional for constructor injection if in class there is only one constructor as Spring will automatically do it.

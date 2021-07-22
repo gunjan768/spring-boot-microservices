@@ -1,0 +1,29 @@
+There are various DAO techniques:
+1) Use EntityManager but leverage native Hibernate API
+2) Use EntityManager and standard JPA API
+3) Spring Data JPA
+
+Standard JPA API
+. The JPA API methods are similar to Native Hibernate API
+. JPA also supports a query language, JPQL (JPA Query Language)
+
+Comparing JPA to Native Hibernate Methods
+
+Action					Native Hibernate Methods		JPA Method
+
+1) Create/save new entity		session.save()				entityManager.persist()	
+2) Retrieve entity by id		session.get() / load() 			entityManager.find()
+3) Retrieve list of entities		session.createQuery()			entityManager.createQuery()
+4) Save or update entity		session.saveOrUpdate()			entityManager.merge()
+5) Delete entity			session.delete()			entityManager.remove()
+
+Using SPring Data JPA ---> 
+
+JpaRepository Interface:
+. Spring Data Jpa provides the interface: JpaRepository
+. Exposes methods (some by inheritance from parents) like findAll(), findById(), save(), deleteById() ... others
+
+Advanced features:
+. Extending and adding custom queries with JPQL
+. Query Domain Specific Language (Query DSL)
+. Defining custom methods (for low level coding)

@@ -1,0 +1,41 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka
+    instance:
+        hostname: localhost
+
+
+server:
+    port: 8765
+spring:
+    application:
+        name: api-gateway
+    cloud:
+        config:
+            import-check:
+                enabled: false
+        gateway:
+            discovery:
+                locator:
+                    enabled: true  # default false
+                # lower-case-service-id: true
+
+                # Configuring gateway routes using application file (see ApiGatewayConfiguration.java with using Java codes)
+#            routes:
+#                - id: currency-exchange-microservice
+#                  uri: lb://CURRENCY-EXCHANGE
+#                  predicates:
+#                      - Path=/currency-exchange/**
+#
+#                - id: currency-conversion-microservice
+#                #  Directly writing the url will remove the load balancing part means it will not talk to Eureka, instead directly go
+#                # to the mentioned and fetch the data
+#                #  uri: http://localhost:8100/
+#                  uri: lb://CURRENCY-CONVERSION
+#                  predicates:
+#                      - Path=/currency-conversion-feign/**
+
+
+
+# Use URL: http://localhost:8765/currency-conversion-feign/from/USD/to/INR/quantity/67 to send request using api-gateway

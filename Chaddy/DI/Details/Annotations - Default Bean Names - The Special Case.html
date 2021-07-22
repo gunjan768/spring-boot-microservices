@@ -1,0 +1,8 @@
+<p><strong>Annotations - Default Bean Names ... and the Special Case
+
+</strong></p><p>In general, when using Annotations, for the default bean name, Spring uses the following rule. </p><p><em>If the annotation's value doesn't indicate a bean name, an appropriate name will be built based on the short name of the class (with the first letter lower-cased). </em></p><p>For example:</p><p>HappyFortuneService --&gt; happyFortuneService</p><p>---</p><p>However, for the <strong>special case of when BOTH the first and second characters of the class name are upper case</strong>, then the <strong>name is NOT converted</strong>.</p><p>For the case of RESTFortuneService</p><p>RESTFortuneService --&gt; RESTFortuneService</p><p><em>No conversion</em> since the first two characters are upper case.</p><p>Behind the scenes, Spring uses the <strong>Java Beans Introspector</strong> to generate the default bean name. Here's a screenshot of the documentation for the key method.</p><figure><img src="https://udemy-images.s3.amazonaws.com:443/redactor/2016-08-09_01-35-26-6157099316121c4df05b042828951e93/decapitalize.png"></figure><p>
+
+</p><p>Also, here's a link to the documentation.</p><p>- <a href="https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html#decapitalize(java.lang.String)" rel="noopener noreferrer" target="_blank">https://docs.oracle.com/javase/8/docs/api/java/beans/Introspector.html#decapitalize(java.lang.String)</a></p><p>---</p><p>As always, you can specify a name for your bean.</p><pre class="prettyprint linenums">@Component("foo")
+public class RESTFortuneService .... {
+&nbsp;&nbsp; &nbsp;
+}</pre><p>Then you can access it using the name of "foo". Nothing tricky to worry about :-)</p><p>Hope this helps. Happy Coding! :-)</p>

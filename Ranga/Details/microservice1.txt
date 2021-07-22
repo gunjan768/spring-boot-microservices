@@ -1,0 +1,29 @@
+--> Resilience4j is a lightweight, easy-to-use fault tolerance library inspired by Netflix Hystrix, but designed for Java 8 and functional programming. Lightweight,
+because the library only uses Vavr, which does not have any other external library dependencies. Netflix Hystrix, in contrast, has a compile dependency to Archaius
+which has many more external library dependencies such as Guava and Apache Commons Configuration.
+. Resilience4j provides higher-order functions (decorators) to enhance any functional interface, lambda expression or method reference with a Circuit Breaker, Rate 
+Limiter, Retry or Bulkhead. You can stack more than one decorator on any functional interface, lambda expression or method reference. The advantage is that you have 
+the choice to select the decorators you need and nothing else.
+
+----> There are 3 states of Circuit Breaker:
+. Closed: It is state where we call dependent microservice continuously.
+. Open: In this state, the Circuit Breaker will not call the dependent microservice and directly return the fallback response.
+. Half Open: In this state, the Circuit Breaker would be sending the percentage of request to the dependent microservice and for the rest of the request it will send
+the fallback (hard-coded) response.
+
+. Note: When you start the app, Circuit Breaker is in start state. Say I called dependent microservice 'X' times and 90% of them failed. In this scenario, it will
+switch from close to open state. Now it will wait for a little while (you can configure the duration of wait) and after that duration it will switch to half open
+state. During this state, it will try and see if the dependent microservice is up, it sends a % of request (you can configure that %) and if it gets the proper
+response for that that much % of request, it will switch to close state and if not then it will go back again to open state.
+
+--> We can have different microservices built on different programming languages. For deploying each microservice, we have different procedures. But we want a common
+way of deploying microservices and here comes a Containers. Most popular container tool is Docker. Follow these steps:
+. We can create docker images of each of these microservices.
+. Docker image contains everything a microservice needs to run: application runtime (JDK or Python or NodeJs), application code, dependencies and etc.
+. You can run these docker containers the same way on any infastructure: your local machine, corporate data centre, cloud.
+
+..................................... ----------------> DOCKER
+. Image actually contains all the things that our app needs to run. It contains the right software for example Java (a specific version of it), all libraries and
+any other dependencies that our app needs to run.
+. When image is in running version then it is called Docker. When we execute the command, the image is downloaded from something called Docker hub (a website)
+(https://hub.docker.com). Docker Hub is something called a Docker registry. A registry contains a number of repositories.

@@ -1,0 +1,14 @@
+Advantage of spring MVC
+
+1) Easy to learn.
+2) Provides that flexibility that you can change anything at anytime.
+3) Separation of concern (modules). As we have different view, different services to work with.
+
+Controllers like Login, Logout, Add, Multiplication etc. If we have lots of controllers then it becomes difficult to manage it. As when client requests, then it goes for web.xml
+and from there it decides which controller to invoke in normal MVC. But in spring MVC, to handle all these controllers we have one more controller which is front controller. This
+front controller is provided by Spring MVC and so we don't need to create by ourself. This front controller is called 'Dispatcher Servlet'. In web.xml we need to mention that
+for all requests they should be forwaded to front controller and then from there they will go to their respective controller. How 'Dispatcher Servlet' will know that which
+controller has to be called for which request ? For this we need a configuration where we mention all these.
+
+But again lots of work is there. We don't have to these all things also. We just annotate every class with @Controller and in configuration file we just has to mention the package
+name.

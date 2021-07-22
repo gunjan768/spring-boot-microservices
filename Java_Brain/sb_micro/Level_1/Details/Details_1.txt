@@ -1,0 +1,18 @@
+How Fault Tolerances Work ----->
+
+Q) Hoad Client Side Discovery works? See movie-catalog-service project (microservice) -> MovieCatalogServiceApplication.java -> @LoadBalanced
+-> As we have 3 services. Client asks for service 1, DiscoveryServer says it has 3 and now client has to do the loadBalancing. Again thanks to library (RestTemplate)
+it is hidden from us. If we have more than 1 instance of any service (say we run the same project on different ports which results in different instances of same service),
+then all the instances will get registered in the EurekaServer. Now if we ask for that instance, then which instance will be picked or error will be thrown. instance
+to be picked up will all depend on the algorithm used (Round-Robin in genral used). So for different call different instance might get picked up. Hence it is the
+effectve loadBalancing. 
+
+Q) What if any service goes down after registering in the EurekaServer ?
+-> Say service 2 goes down. Client will ask for service 2, DiscoveryServer says hey sure it was registered some time ago and here is the address. Now how to make sure
+that service has gone down or not ? Using "heart beats". Now what EurekaClient does by default is ping the EurekaServer on the regular basis and send out the heart
+beats saying that I am still live. Now if EurekaServer doesn't find the the heart beat of any service for certain interval then it will unregister that client and
+removes it from the service registry.
+
+Q) What if DiscoveryServer goes down ?
+->  Client ask can I get service 2. No response comes from the DiscoveryServer as it has been dowm. Now client will look from the cache. All these things are doesn
+by default by EurekaServer (@LoadBalanced on RestTemplate does all the things).

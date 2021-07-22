@@ -1,0 +1,17 @@
+any:
+  connection: test-connection-string
+  host: 129.0.0.1
+  port: 2400
+app:
+  description: Welcome to ${app.name}
+  name: Emilia Clarke
+dbValues: '{url: ''https\any_url.com'', userName: ''Mallika'', password: ''pass''}'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+my:
+  greeting: Hello World
+  list:
+    value: gunjan,mummy,bhaiya

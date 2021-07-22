@@ -1,0 +1,43 @@
+Q) What is Environment Object ?
+-> Using application.properties and using @Value() or @Configuration annotation, SB is basically injecting the value (DI) rather than looking up the value. We want
+to look up the value and we can do that using Environment Object. Environment is a bean which you can inject or Autowired to our classes.
+
+Note: What you see your SB do for your properties file, you actually have api access and you can do it on your own. The reason you can do this is because the
+Environment type extends the PropertyResolver interface type intenrally.
+
+Q) What is Spring Cloud config ?
+-> Spring Cloud Config is Spring's client/server approach for storing and serving distributed configurations across multiple applications and environments. This 
+configuration store is ideally versioned under Git version control and can be modified at application runtime.
+
+. Consistency in Configuration is super important with microservices. All the microservices should have same configuration values and not like this: one microservices
+has "db_connection_url" different than others. We want all the microservices have consistent and reliable configuration values. To achieve this, we need to create
+a separate Configuration Service which serves as Global Configuration Service. So use Config as a separate microservice.
+
+--------> Config as a separate microservice: Tools which provides Configuration
+. Apache Zookeeper
+. ETCD - distributed key-value store
+. Harshicorp Consul
+. Spring Cloud Configuration server (most popular)
+
+Spring Cloud Configuration Server: It is the central server which all these different microservices talk to. It can connect to various data sources but there is one
+data source which is extremly popular. We need a version control config and popular version control is Git. It can directly connect to Git repo and Git Repo can
+directly look up the the value of the properties in files inside Git repo.
+
+Note: We want to push the changes made to our configuration files without touching our app. If configuration file would  be inside the app, then any changes made to the
+configuration file and pushing it will result in the deploying of app again. So we used Spring Cloud Configuration server which uses GitRepo and we just need to push
+changes to the repo only.
+
+Q) How to find the URL on which "Spring Cloud Configuration Server" runs ?
+-> There is a specific convention for URL. http//localhost:portName/<file_name_without_extension>/<profile>. For example: Url for application.properties, file name
+is "application" and profile is "default", url is http://localhost:8081/application/default
+
+Q) How to get the real time update ?
+-> Client is not updated i.e. any changes made to the config server is not reflected to the client in Real Time. Now there are several ways to the changes:-
+.  We need to restart the client again to get the latest updates. It's because microservice (client) is not made to get the Real time updates.
+. Actuator provides several endpoints and among them there is one end point where if we send a POST request, client will get all the latest updates. Now to tell
+which classes to be refreshed we need to annotate a class with @RefreshScope annotation so that they can get all the latest updates.
+
+. Spring Cloud Config Server has the ability to encrypt or decrypt keys. Lets say we have some credentials we want to store in the Config Server and we use Git as
+a storage. Now anyone who has the access to the Git can take out the credentails. So to be secure we will not directly put the plain text (credentials) to the Git
+, instead we first encrypt it and then store it. So to encrypt the keys we can use Spring Cloud Config Server itself only. The values will be decrypted before
+sending to the clients (microservices). For encrypting and decrypting, it uses Java Cryptography Extension (JCE).

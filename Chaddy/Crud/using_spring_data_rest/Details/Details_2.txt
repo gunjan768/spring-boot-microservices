@@ -1,0 +1,63 @@
+There are various DAO techniques:
+1) Use EntityManager but leverage native Hibernate API
+2) Use EntityManager and standard JPA API
+3) Spring Data JPA
+
+Standard JPA API
+. The JPA API methods are similar to Native Hibernate API
+. JPA also supports a query language, JPQL (JPA Query Language)
+
+Comparing JPA to Native Hibernate Methods
+
+Action					Native Hibernate Methods		JPA Method
+
+1) Create/save new entity		session.save()				entityManager.persist()	
+2) Retrieve entity by id		session.get() / load() 			entityManager.find()
+3) Retrieve list of entities		session.createQuery()			entityManager.createQuery()
+4) Save or update entity		session.saveOrUpdate()			entityManager.merge()
+5) Delete entity			session.delete()			entityManager.remove()
+
+
+							Using SPring Data JPA ---> 
+
+JpaRepository Interface:
+. Spring Data Jpa provides the interface: JpaRepository
+. Exposes methods (some by inheritance from parents) like findAll(), findById(), save(), deleteById() ... others
+
+Advanced features:
+. Extending and adding custom queries with JPQL
+. Query Domain Specific Language (Query DSL)
+. Defining custom methods (for low level coding)
+
+Using Data Rest --->
+
+. Create a Rest Api. Use existing JpaRespository. 
+. Provide all the basic Rest Api Crud implementation (hence minimize the boilerplate code).
+. Spring Data Rest will expose these endpoints for free: Post, Get, Get (per Id), Put, Delete
+
+How Spring Data Rest work?
+. Spring Data Rest will scan your project for JpaRepository
+. Expose Rest Api for each entity type for your JpaRepository
+
+--> By default, Spring Data Rest will create endpoints based on entity type
+--> Simple pluralized form: First character of Entity type is lowercase and then just adds an "s" to the entity. For ex if Entity is Employee then endpoint = /employees
+--> Spring Data Rest will scan for JpaRepository
+
+--> Spring Data Rest endpoints are HATEOAS (Hypermedia as the Engine of Appliation State) compliant. Hateoas uses Hypertext Application Language (HAL) dat format.
+    Hypermedia-driven sites provide information to access Rest interfaces and think
+    of it as meta-data for Rest Data. For example Rest response from : Get/employees/3
+{
+	"firstName": "Gunjan", "lastName": "Kumar", "age": 12,
+	
+	// These are the meta-data
+	"_links": {
+		"self": {
+			"href": "http://localhost:8080/employees/3"
+		},
+		"employee": {
+			"href": "http://localhost:8080/employees/3"
+		}
+	}
+}
+
+. For a collection, meta-data includes page size, total elements, pages etc (example Rest response from: Get /employees)

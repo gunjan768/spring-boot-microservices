@@ -1,0 +1,56 @@
+Q) What if request comes for the tripped circuit (for a microserive which has been tripped according to Circuit Breaker Pattern as instance is slow) ?
+-> We need a Fallback mechanism. There are several ways to implement the mechanism :-
+. Throw an error (should be last choice) where every request will be sent back with an error. 
+. Return a fallback "default" response i.e. when a circuit trips then for every subsequent requests we will send a hardcoded (default) response so that user will
+get some response instead of throwing an error (not very much recommended but better than throwing an error).
+. Save previous responses (cache) and use that when possible. This is the best way to handle.
+
+# Circuit Breaker Pattern: when to break the circuit -> what to do when the circuit breaks -> when to resume requests
+
+Q) Why Circuit Breakers ?
+. Failing fast is the good thing than taking time and fail.
+. Fallback functionality.
+. Automatic recovery.
+
+Hystrix:
+
+. It is a open source library originally created by Netflix.
+. It implements Circuit Breaker Pattern so you don't have do it as it requires to deal with concurrent threads.
+. Give it the configurations params (parameters) and it does the work.
+. Works well with SB.
+
+Adding Hystrix to a SB microserive
+. Add the Maven spring-cloud-starter-netflix-hystrix dependency.
+. Add @EnableCircuitBreaker to the app class.
+. Add @HystrixCommand to methods that need circuit breakers.
+. COnfigure Hystrix behaviour (parameters).
+
+Q) How Hystrix works ?
+-> Annotate method with @HystrixCommand() which requires circuit breaking. Hystrix actually wraps your class with a proxy class so when someome asks for an instance of
+this class, what they get back is not the instance of the class itself but get an instance of this proxy class which has been wrapped around. Proxy class contains a
+Circuit Breaker logic. Hystrix continuously monitoring the response and if something fails, Hystrix calls the Fallback method.
+
+################################### Note:
+When you have a Spring Bean (marked with either of them: @Component, @RestController, @Service, @Bean etc) have the HystrixCommand (method), whats Hystrix is
+doing is that it is wrapping it in proxy class so whoever holding an instance of an API class (as marked with @RestController so API class) is actually holding an
+instance of proxy class, so when they make a call to what they think is an API class but is actually an instance of Proxy class. Proxy instance has a control, an 
+ability to intercept a call and do things.
+    So before when we had one Hystrix fallback method (see CatalogResourceTemp.txt file inside the movie-catalog-service microserive) who is calling the
+@HystrixCommand() annotated method (getCatalog()) ? It was the Spring Framework which called the HystrixCommand() Fallback method because Spring Framework had the
+instance. What SF thought it was calling the method on the API class but actually calling the method on this proxy class and the proxy has the ability to say
+that this service is down and I want to call the Fallback.
+    Now after refractring the code (see CatalogResourceTemp1.txt file inside the movie-catalog-service microserive), where we have two fallbacks and annotation
+@HystrixCommand() is not on the RestMethod handler (getCatalog()). Now in this case who is calling the method which has the @HystrixCommand() annotation ? Here one
+method of a class is calling the other method of a class and there is no Proxy class. Hystrix is implement in that way only. So the only way out is taking the
+method out into different class or spring service and having the main API method call not the other method of the same class but to a method of another instance.
+Then Autowire the instance of the class (having an Hystrix method) to the API class and the instance API class get is an instance of Proxy class.
+
+# Hystrix Dashboard: Display data in a dashboard called Hystrix Dashboard. All the information like all the ciruit breakers, no if circuit breakers etc are displayed
+on the dashboard.
+
+--> We have studied 2 ways (naive (create more instances) and circuit breaker) to handle the outrages. 3rd way is to use Bulkhead Pattern
+
+# Bulkhead Pattern: The Bulkhead pattern is a type of application design that is tolerant of failure. In a bulkhead architecture, elements of an application are
+isolated into pools so that if one fails, the others will continue to function. It's named after the sectioned partitions (bulkheads) of a ship's hull. In general, 
+the goal of the bulkhead pattern is to avoid faults in one part of a system to take the entire system down. The term comes from ships where a ship is divided in 
+separate watertight compartments to avoid a single hull breach to flood the entire ship; it will only flood one bulkhead.

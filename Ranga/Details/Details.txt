@@ -1,0 +1,38 @@
+.......................................... WEB SERVICE ..........................................................
+
+Q) What is web service ?
+-> Software system designed to support interoperable machine-to-machine interaction over a network.
+. Designed for machine-to-machine (or app-to-app) interaction
+. Should be interoperable - not platform (php, java, js, etc) dependent
+. Should allow communication over a network
+
+. Service Provider or Server, Service Consumer or Client.
+. Service: It is the contract b/w the service provider and the service consumers. It defines what will the format of the request and responser: XML or JSON. What is
+the structure of the request and response, where the service is available (endpoints i.e. URL where service is available).
+. Transport: How service is called like is there any URL which can be called over network or over the MQ (using Queue).
+
+There are two types of Web Services available:
+1) Soap: used to stand for Simple Object Access Protocol. It uses XML for sending message exchange. It defines the format for your request and response but doesn't
+impose any restrictions on your transport (can use either HTTP or MQ). The service definition is typically done using Web Service Definition Language (WSDL). WSDL
+defines the endpoint, all operations exposed (like add a course, delete a course) and request and response structure.
+2) Rest: resources (URI like /user/{id}) are assigned. No restriction on Data Exchange Format (can use json, html, xml), restriction on transport (can only use HTTP)
+as Rest is completely built over the HTTP. Web Application Definition Language (WADL) is one of the formats used by Rest to specify the Restful Web Services. Swagger
+is another format to specify the Restful Web Services.
+
+....................................................................................................................
+
+JPA: Java Persistence API, it provides the mapping using Relationships, Entities, Mapping, EntityManager etc like maps the Table name to Class Name. We use
+EntityManager to manage our entities. It provides JPQL and Criteria API (to wirte queries using Java API).
+
+Hibernate: is a ORM framework. It is one of the popular implementations of JPA. JPA is a specification and Hibernate implements it. Basically JPA consists of bunch of
+interfaces and provides all the annotations and Hibernate uses all that interfaces to implement them and reads all the annotations and understands them.
+
+----> SB auto configuration says that it founds the dispatcherServlet on the classpath, so lets go ahead and configure a dispatcherServlet. DispatcherServlet is a
+front controller (or follow the front controller pattern) which receives every request and from here it sends the request to the respective controller as it knows
+all the mapping present for example request to "/hello-world" mapped to HelloWorld() method. @RestController annotation has a @ResponseBody annotation which is used
+to map the response from a specific handler (method) by a message converter (Jackson is used a message converter) into some other format. So Jackson will the convert
+the response returned to JSON and return the bean back to the user.
+
+Q) Who is configuring the dispatcherServlet: SB auto configuration.
+Q) How does an instance of a class (any class) returned from the handler (RestController method) get converted to JSON: Using Jackson library.
+Q) Who is configuring the error mapping: SB auto configuration and it creates a default error page.

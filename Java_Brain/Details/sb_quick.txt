@@ -1,0 +1,50 @@
+Q) What is SB?
+-> It comprises of two parts: Spring and Boot where Spring is the spring framework which helps to write Enterprise Java app, Boot means Bootstrap. Hence according
+to official website, SB makes it easy to create stand-alone (run on it's own), production-grade (not Hello world like app) Spring based Apps that you can "jsut run"
+(as SB has embeded Tomcat server).
+
+Q) What is Spring ?
+. Application framework which helps you build Enterprise Application.
+. Programming and configuration model.
+. Infrastructure support (like connecting to db).
+
+Q) Poblems related to Spring:
+. Huge framework (doesn't know from where to start)    . Multiple setup steps      . Multiple configuration steps      . Multiple build and deploy steps
+
+# Enter Spring Boot:
+. Opinionated (it somehow tells you start from here, makes some configuration choice and decision).
+. Convention over configuration.
+. As it genrates spring app hence provides stand alone.
+. Production ready
+
+. In Maven, we have parent-child relationship. In SB, there is a dependency called "spring-boot-starter-parent", we define our sb project as a child of this parent
+dependency. SB created a project called spring-boot-starter-parent and put all the default Maven configuration into that project so by decalaring our project as a
+child of it can have all that configuration into our project. Hence, SB provides many out of the box configuration.
+. Since we are using Maven, we need to add all the dependencies we need like for Rest api we need many dependencies. In this situation, again SB helps by providing
+a meta dependency which is similar to parent dependency which has all the jars we need to certain purpose like for Rest api. Meta dependency like "s-b-starter-web"
+which provides all jars for web related purpose.
+
+. Child dependency (like "s-b-starter-web") tells what jars to download and parent dependency tells what version of jars to download. List of possible combination
+of jars that work well without issue is called Bill Of Materials.
+
+. @SpringBootApplication is the starting point of any sb project. We need to tell SB to start the app, creates a servlet container and host the app in the servlet
+container and make it available. We don't need to do by our own, just use Static Method SpringApplication.run(a, b) where a: class name where our main method (psvd)
+is, b: any argument you want to pass to run() method.
+
+Q) What does @SpringBootApplication do ?
+. Sets up default configuration.
+. Starts Spring application context: Spring basically acts a container for services, repositorties, components, controllers etc. This container is called
+application context.
+. Performs class path scan: There are different annotations like @Service, @Repository etc and on the basis of these, spring treats them differently. So to see which
+class has which type of annotation, SB needs to scan the class path. 
+. Starts Tomcat server: makes a SB a stand alone.
+
+Note: @RequestMapping maps only to GET method by default. To map to other HTTP methods, you will have to specify it in the annotation.
+
+Q) Why Embeded Tomcat Server ?
+. Convenience: We don't need to download the Tomcat server, install it and deploy the app in Tomcat container.
+. Servlet container config is now application (application.properties) config.
+. Standalone application.
+. Useful for microservices architecture: We can have lots of microservices and to deploy each one is a pain in the ass.
+
+###### Spring MVC Controller: Spring MVC comes free with starter dependency. All controllers are built using Spring MVC.

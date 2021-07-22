@@ -1,0 +1,8 @@
+Bean Licfecycle Methods/Hooks:
+. You can custom code during bean intialization
+. You can add custom code during bean destruction
+
+. Simply define your methods for initialization and destroy and then all you do is you add annotations to those methods and the annotations are @PostConstruct for initialization and
+@PreDestroy for destroy.
+
+Note: For "prototype" scoped beans, Spring does not call the @PreDestroy method

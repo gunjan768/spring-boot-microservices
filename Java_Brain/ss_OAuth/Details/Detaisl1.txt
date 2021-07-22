@@ -1,0 +1,30 @@
+There are various OAuh flow on the internet. Here main 3 flows are covered:
+
+1) Authorization code flow: 
+. This is the dance b/w the Resource Owner, the Client and Resource Server who works in conjuction with the Authorization Server.
+. User logged in to the PPS. Resource owner tells the client to go and access the Resource in his Resource Server.
+. Client will first talk to the Authorization Server (as there is an OAuh flow). Here GD acts both as a Resource Server and an Authorization Server.
+. Authorization Server will then go the Resource Owner for the verification (as PPS wants to access the Resource Owner (user) files). Authorization Server will ask
+  two things: 1) who is requesting for the access 2) what are the permissions that service (PPS) needs. Resource Owner (user) will allowe and say I am cool with it.
+. Now Authorization Server will give access to the PPS and sends an Authorization token to the client (PPS). Now client will again contact with the Authorization
+  Authorization Server and to get the second token called Access Token. Now client can contact the Resource Server and get what it wants using that Access Token
+  after successful verification (as Resource Server will first verify the Access Token).
+
+2) Implicit flow: Works very similar to Authorization code flow but with more simplifications.
+. Instead of sending the Authorization Token, Authorization Server directly sends the Access Token.
+. Not as secure as in case if someone else get the Access Token then he/she can impersonte the particular service (PPS) and can access your GD.
+. Primarily used with short-lived access tokens.
+. Used with JS apps.
+
+3) Client Credentials Flow: 
+. When the client is well trusted (confidential clients) and one example of trustworthy client is when you write the client by yourself which is exactly what the 
+  Microservices situation is so it is widely used in Microservices.
+
+Q) How OAuh is used for Authentication ?
+--> In the previous example, user was already authenticated to both the services and OAuh flow is needed for the communication b/w services i.e. service authorize
+other services. Say we are building a Client and we don't want to build our own Authentication Service, then we can rely on some other services like Google, FB
+etc for Authentication. Hence OAuh orginally was built for Authorization but now it is also used for Authentication. We say if user has been authenticated on
+Google and Google trusts that user then we are happy enough to use Google OAuh for authenticated and trust that user.
+
+--> In SS we can use OAuh for Authentication. SS makes an OAuh call to get the user profile information. Once it gets the user profile information, SS app puts that
+in the SecurityContext to simulate a logged in user.

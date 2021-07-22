@@ -1,0 +1,59 @@
+Fault Tolerance and Resilience
+
+-> These two terms are often used interchangably like Fault Tolerance and Resilience bundle them together and make them one thing but they kinda do different things.
+
+Q) What is Fault Tolerance ?
+-> Given an app if there is a fault, what is the impact of the fault, how much tolerance does the system have for a specific fault. Lets say one microservice goes dowm
+then what happens to your microservice app, does the whole app goes down or part of it only goes dowm or is there some way to handle that failure so that it will have
+no effect at all. So what tolerance your system has for a particular fault is what called Fault Tolerance.
+
+Q) What is Resilience ?
+-> It is basically how many faults can a system tolerate. This indicates how resilient system is. Fault Tolerance is how much can a system tolerate for a single fault
+and Resilience is how many faults system tolerate before it brought down to it's nees. A part of Resilience is also how much a system can bounce back from a fault.
+
+Q) How Threads work in a web server ?
+-> Say a request comes in, Tomacat server will create a thread for that request. In a meanwhile if another request comes in (and the first created thread is busy in
+processing the previous request) then Tomacat server will create a new thread for that req. Similary Tomacat server will create a brand new thread if all the previous
+created threads are busy in processing their requests. But we need to limit the max number of threads to be created so that whole resource is not used up. 
+
+Issues with microservices:
+
+1) A microservice instance goes down -> Run multiple instances. There is client side load balancing called Ribbon and it does a Round Robin. If it sees more than one 
+instance of a microservice, it says I called this instance last time so call the next instance this time. Each of the client has logic in it to handle the equal 
+distrubution of the load. So having multiple instance is good as to share loads and to increase the scalibility plus if any instance goes down other can handle.
+
+2) Microservice instance is slow ----->
+
+Problem: Say we have several microservices and one of them is slow (say microservice A). Calling microservice B is fast. Now say we made a series of requests to 
+microservice A and for every requests Tomacat server will create a new thread (since we considered that the instance of microservice A is slow which means that for 
+processing any request made to A will take time) as all the previuos threads are still not freed up. Say we reach the max limit of threads and no further thread will
+be created for new request and request has to wait till any previous request get completed. Now a request to microservice B is made so it has to wait as no new thread 
+can be created, which results in slowing down the microservice B also. Thought microservice B is not connected to microservice A thought it has to face the issue.
+
+Solution: Timeout is the best Solution. Removing the threads which are taking lot of time. We can set the timeouts on Spring RestTemplate class (this class is used
+to make an api call). But still it has not solved the problem completely. What if frequecy of requests coming to the Tomacat server is high means per sec say 10 
+requests are coming and in 3 sec (assume we have set the timeout to 3 sec which means any request takes more than 3 sec will be thrown out and the thread processing
+that request will be removed) a thread is removed (if the request takes more than 3 sec). Hence again same problem will arise. 
+        So to tackle the problem detect the microservice(s) which is/are slow and stop sending the continuous requests to the microservice(s). This is the pattern
+followed by the Fault Tolerance.
+ 
+
+# Circuit Breaker: According to Wikipedia, Circuit Breaker basic function is to interrupt current flow after a fault is detected. A Circuit Breaker can be reset 
+(either manually or automatically) to resume normal operation or functions.
+
+----> Steps in Fault Tolerance: Below steps are Circuit Breaker Pattern as we are breaking the normal flow to avoid getting things worse.  
+. Detect something is wrong. Microservice calling other microservice has the ability to detect something is wrong (here problem : other microservices are slow).
+. Take temporary steps to avoid situation getting worse. Microservice is smart enough and say something is worng with that microservice (as no response is coming
+from that microservice) so I will stop sending the request for some time.
+. Deactivate the "problem" component so that it doesn't affect downstream components.
+
+## Applying Circuit Breaker Pattern to microservice: We can apply this pattern to every microservice which calls other microservice. Mainly this pattern is more
+useful when a microservice calls more than one microservice. Like in our case Movie Catalog Service calls Movie Info Service and Ratings Data Service. Consider
+Movie Info Service is slow then any further requests for Movie Info Service will not be entairned for some time as it will slow down the Ratings Data Service.
+
+Q) When does the circuit trip ?
+. Last n requests to consider for the decision and howm any of those should fail.
+. Timeout duration
+
+Q) When does the circuit get back to normal (after trip) ?
+. How long after a circuit trip to try again i.e. how long should we wait after circuit trip so that we can send new request.
