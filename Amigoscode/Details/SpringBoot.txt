@@ -1,0 +1,23 @@
+In earlier days we used to work with Spring Framework where we configure everything using
+XML. But in Spring Boot all changes. As a developer we don't want to focus more on XML
+and thats why we have spring boot in Java using which we can : say we have some class
+and we simply write @Component over it which makes the class dependent, a component of the 
+spring framework which will be generated as per requirement. Now we have some other class
+which wants an object of that component class, how ? We will connect both the classes and
+this is called Autowire using annotation @Autowired (we will attach @Autowired annotation
+above the reference variable of the component class which we have inside this class).
+We can achieve loose coupling as well as we will have easy to test and maintain.
+
+Content Negotiation : As a server you have options to provide data in different format like XML, JSON, PDF etc. Say client want JSON then server will return data in JSON. But is there
+like this that if client ask data in some desired format and server says that it will not provide it in that format. It is posiible using Content Negotiation conecpt where client will
+specify what they want and server can say this is not available. For more info use Postman (see Spring boot Naving Reddy video (02:13 hr))
+
+
+
+								Websites
+
+For maven dependency
+https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper/9.0.44
+
+If faces any problem in enabling JSP in Spring Boot in Intellij
+https://arturk9.wordpress.com/2017/02/22/springboot-how-to-enable-jsp-in-intellij/

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d3433113-6d1a-4728-b48c-dfa6cfb85304" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1v9PncxAV5JWEn4uj9izVt7oJGN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/gunjan768" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Practice\Spring\Ranga\junit_and_mockito\src\main\java\com\gunjan768" />
+      <recent name="D:\Practice\Spring\Ranga\junit_and_mockito\src\test\java\com\gunjan768" />
+      <recent name="D:\Practice\Spring\Ranga\junit_and_mockito\src\test\java\com\gunjan768\mocikito" />
+      <recent name="D:\Practice\Spring\Ranga\junit_and_mockito\src\test\java\com\gunjan768\business" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Practice\Spring\Ranga\junit_and_mockito\src\test\java\com\gunjan768" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.gunjan768" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.gunjan768" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.PowerMockitoTestingPrivateMethodTest.powerMockito_CallingAPrivateMethod">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PowerMockitoTestingPrivateMethodTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="junit_and_mockito" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gunjan768.powermock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.gunjan768.powermock" />
+      <option name="MAIN_CLASS_NAME" value="com.gunjan768.powermock.PowerMockitoTestingPrivateMethodTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PowerMockitoTestingPrivateMethodTest.powerMockito_CallingAPrivateMethod" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="junit_and_mockito" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gunjan768.powermock.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.gunjan768.powermock" />
+      <option name="MAIN_CLASS_NAME" value="com.gunjan768.powermock.PowerMockitoTestingPrivateMethodTest" />
+      <option name="METHOD_NAME" value="powerMockito_CallingAPrivateMethod" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TodoBusinessImplMockitoInjectMocksTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="junit_and_mockito" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gunjan768.business.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.gunjan768.business" />
+      <option name="MAIN_CLASS_NAME" value="com.gunjan768.business.TodoBusinessImplMockitoInjectMocksTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TodoBusinessImplMockitoInjectMocksTest.powerMockito_CallingAPrivateMethod" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="junit_and_mockito" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gunjan768.business.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.gunjan768.business" />
+      <option name="MAIN_CLASS_NAME" value="com.gunjan768.business.TodoBusinessImplMockitoInjectMocksTest" />
+      <option name="METHOD_NAME" value="powerMockito_CallingAPrivateMethod" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TodoBusinessImplMockitoInjectMocksTest.usingMockito" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="junit_and_mockito" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.gunjan768.business.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.gunjan768.business" />
+      <option name="MAIN_CLASS_NAME" value="com.gunjan768.business.TodoBusinessImplMockitoInjectMocksTest" />
+      <option name="METHOD_NAME" value="usingMockito" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.PowerMockitoTestingPrivateMethodTest.powerMockito_CallingAPrivateMethod" />
+        <item itemvalue="JUnit.TodoBusinessImplMockitoInjectMocksTest" />
+        <item itemvalue="JUnit.TodoBusinessImplMockitoInjectMocksTest.powerMockito_CallingAPrivateMethod" />
+        <item itemvalue="JUnit.TodoBusinessImplMockitoInjectMocksTest.usingMockito" />
+        <item itemvalue="JUnit.PowerMockitoTestingPrivateMethodTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d3433113-6d1a-4728-b48c-dfa6cfb85304" name="Default Changelist" comment="" />
+      <created>1625971506749</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625971506749</updated>
+      <workItem from="1625971510730" duration="12758000" />
+      <workItem from="1626602647846" duration="11846000" />
+      <workItem from="1626663058245" duration="15256000" />
+      <workItem from="1626751495861" duration="5758000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

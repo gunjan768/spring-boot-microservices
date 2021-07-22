@@ -1,0 +1,46 @@
+Internalization: There are 18 characters in it so it is called I18in. It is nothing but customizing your services for different people around the world. Say we
+have HelloWorld() handler (RestController) which sends different response based on different country like for example "kaise ho" in Hindi, "hello" in US etc. We
+have list of properties which will be internalized and we would want to store them in something called ResourceBundleMessageSource (it is used to handle the
+properties in the spring). We will also configure LocaleResolver. 
+
+HAL: It stands for Hypertext Application Language, is a simple format that gives a consistent and easy way to hyperlink b/w resources in your api.
+
+. SB actuator apis are actually in the HAL format. What does the HAL browser does  is, it looks at those APIs, identifies the links and shows them on the screen so
+that we can easily browse the APIs by just clicking the links which are present in there. So HAL browser makes it easy to consume the HAL services which are being
+exposed by spring-boot-starter-actuator.
+
+. HATEOAS: stands for Hypermedia As The Engine Of Application State.
+
+----> RICHARDSON MATURITY MODEL: It tells how Restful our service is. It defines differnt (3 to 4) levels of Restful services. Lets look them:
+. LEVEL 0: Expose Web Services in Rest Style. It means exposing urls in rest style for example: http://server/get-posts.
+. LEVEL 1: Expose Resources with proper URI. Resources like User, Post etc, example: http://server/post/10. It doesn't tell anything about proper use of HTTP methods.
+. LEVEL 2: LEVEL 1 + HTTP Methods.
+. LEVEL 3: LEVEL 2 + HATEOAS (provide each response wtih extra urls like for example: with a response of all post, provide a link to every single post). We need to
+return next possible actions along with current action (extra links).
+
+. Adding spring-boot-starter will get you spring mvc, spring core, validation framewrok, logging and mang more. Adding spring-boot-starter-jpa will get you JPA along
+with it's default implementation with Hibernate and also auto configure of that. At startup (when app starts), SB would trigger the auto configuration jar and it
+would loop through classes which are on the classpath. Like for example: when app satarts, SB says, "There is spring web MVC on the classpath, then I would need to
+configure a DispatcherServlet, ViewResolver etc"
+
+--> @SpringBootApplication: 1) Indicates the spring context    2) Enables Auto Configuration       3) Enables Component Scan
+--> SpringApplication.run() is used to run Spring Context and returns an an instance of ApplicationContext.
+
+SB looks at 1) Frameworks (like Hibernate, JPA, SS etc) available on the classpath  2) Existing configuration for the application. Based on these, SB provides basic
+configuration needed to configure the application with these framewroks. This is called Auto Configuration.
+
+Q) Diff b/w Spring (or Spring Framework), Spring MVC and SB ?
+. Spring Framework: Most important feature of Spring is DI or IOC like @Component etc. It also solves duplication (plumbing code), lets say we use JDBC, we need to 
+write a lot of boilerplate code like try catch, exception. We can avoid this by using Spring ORM or Spring AOP or any other framework. It provides a good integration 
+with other Frameworks like Hibernate, JUnit, Mockito.
+. Spring MVC: it is used for developing web applications. With simple concepts like DispatcherServlet, ModelAndView and ViewResolver, it makes it easy to develop
+web apps. It separates concerns like DispatcherServlet is concerned as a front controller, ViewResolver which is concerned just with resolving a view name to the
+physical view. It makes very easy to develop Restful services.
+. SB: Spring has lot of Configuration like DispatcherServlet, ViewResolver, Component Scan, if using Hibernate, JPA need to configure DataSource, EntityManager.
+So SB provides auto configuration feature and save our ass from all those pain. It provides lots of starters projects (like starter-web, starter-jpa) and we
+need to just add them pom.xml according to our use.
+
+. SB DevTools dependency used for live reloading. It reloads faster as compared when we manually restart our app. It's because DevTools knows that dependencies in
+Maven donot change at all so it will not load things which are dependent on these dependencies. It will only load the application beans i.e. any changes in the app
+code.  When we make any changes in pom.xml we need to manually restart our app. When we restart our app, everything in pom.xml restarts so it takes more time 
+comparatively.

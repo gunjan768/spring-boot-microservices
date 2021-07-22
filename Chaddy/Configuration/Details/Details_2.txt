@@ -1,0 +1,7 @@
+-> We learnt three ways of configuring Spring Container: 1) Full XML config   2) XML Component Scan (mix of XML and annotation)  3) Java configuration class (not XML)
+
+. AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(java_config_class_name.class); It is used when we configure using Java codes.
+
+@configuration
+@PropertySource("classpath:sport.properties")     // Load properties file in spring config  
+class SportConfig {}

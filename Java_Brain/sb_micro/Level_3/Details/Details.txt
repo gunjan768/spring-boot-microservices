@@ -1,0 +1,45 @@
+Q) How to fix java-lang-unsupportedclassversionerror-unsupported-major-minor error ?
+-> Mainly it means you are compiling in a higher version and running an app in the lower version. For example in my case I was compiling in Java 16 and ruuning
+in Java 11 or Java 8. So uninstalled Java 8 from my system and installed Java 16 (name: Java 8 update)
+
+Q) What and why microservice configuration ?
+-> configuration of a system refers to the arrangement of each of its functional units, according to their nature, number and chief characteristics. 
+Configuration management is all about bringing consistency in the infrastructure. This is done by ensuring that the current design system, state and environment 
+is known,trusted and agreed upon by everyone. Configuration management helps record all the changes made in the system. Configuration management helps engineering 
+teams build robust and stable systems through the use of tools that automatically manage and monitor updates to configuration data
+
+-------> Example Configuration:
+
+. Database connections
+. Credentials
+. Feature flag: Feature flag (also known as feature toggle or feature switch) is a technique that allows separating feature release from deploying code during software
+development. That way, an application is under full control since developers can set who sees its features and when. You wanna role out the features but you don't how
+these features perfom, so you put the features behind the flag and only enable for certain time interval only (like 8pm to 10 pm) and see how the features perfom,
+users gonna like them or not and son on and based on that turn them bit longer. It is also like enabling features to certain subset of people and then enable them
+for more people.
+. Business logic configuration parameters
+. Scenario testing: Scenario Testing in software testing is a method in which actual scenarios are used for testing the software application instead of test cases. 
+The purpose of scenario testing is to test end to end scenarios for a specific complex problem of the software. Scenarios help in an easier way to test and evaluate 
+end to end complicated problems.
+
+. JAR FILE: It is also referred as Fat Jar, is a jar file that is self-contained-bundled withall the dependencies it needs. Like it contains Tomcat so we don't need
+to run the Tomcat separately. If you don't have Maven install on your machine then also you can run the app by using mvnw.cmd and mvnw. These are wrappers for maven.
+
+. If you have any external "application.properties" inside the target folder, then the value of the property of the external file will replace value of the internal
+file.
+
+. YAML: It is used to stand for Yet Another Markup Language but now it stands for YAML Ain't Markup Language
+
+Q) What is Spring Profile? 
+-> Spring Profiles helps segregating your application configurations, and make them available only in certain environments. An application run on many different 
+environments. For example, Dev, QA, Test, Stage, Production etc. Spring Profiles are always in effect (active). Start your SB app and see the console written
+"No active profile set, falling back to default profiles: default". If you are not actively using the SP then default is applied. All the configurations we have
+applied like in application.properties all belong to default profile. By creating new ".properties" or ".yml" file will create a placeholder for new profile 
+configuration. Convention for writing profile name: application-<profile_name>.extension, example: application-test.yml.
+
+To change the profile use "spring.profiles.active: profile_name" property in the application.properties i.e. in the default profile. It's little bit odd
+that we telling SB to use some other profile by writing in the default profile. It's because default profile is always active. You can use cmd to overwrite the
+active profile: java -jar nameSNAPSHOT.jar --spring.profiles.active=x where x = test, prod, dev etc i.e. we can achieve environment based configuration.
+
+. We can even select the Bean based on profile by using @Profile annotation (writing above the class name). For example @Profile("production"), @Profile("dev").
+If we don't have any @Profile annotation or @Profile("default"), then all beans will be instantiated.

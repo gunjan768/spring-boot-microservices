@@ -1,0 +1,48 @@
+Monolithic Architecture: Smushed into single file and deployed.
+
+-> Online e-commerce sites, they have very unpredictable traffic spikes. Lets say there is sale on some product, people rush to the site like crazy and after the sale
+is over traffic again comes to normal. Thankfully these days we have elastic server, when the traffic spikes up the number of application server instances are
+increased and then traffic goes back to normal the extra servers are retired. In case of Monolithic, whole project is smushed into one. Take an example of e-commerce
+websites which consists of Shoping Module, Profile Module and so on and are wrapped into single file and deployed. Lets say there are traffic spike on the Shoping
+pages (module), the server scale which results the scalling of all the other functionalities even when no one is using them. All other functionalities have to scale
+up as whole thing is the one single app.
+
+-> Rather than have the whole application smushed into one Monolath (monolithic) and deployed into a single machine, why not split the application into smaller mini
+applications, then you can deploy these mini applications on different machines and you can have talk them over the network and they together work as single big
+application.
+
+--> Microservices are the way of breaking of your application or service down into standalone independent applications that can be run on different hardware or
+server instances. They all together talk over a Rest APIs (over Internet) and together provide the functionalities of the product.
+
+Advantages of Microservices:
+. Deployment flexibility
+. Technology flexibility (can use different languages as microservices talk over the Rest Apis)
+. Can be scaled separately.
+
+Disadvantages of Microservices:
+. Deployment / architecture complexity as we have to deal with lots of mini apps in the form of microservices (which are the break down of larger app).
+. Service discovery (how microservices discover each other)
+
+-> Spring Cloud is one of the ways to create a microservices.
+-> Service Discovery is a pattern when you have an app broken down into different services how do you have them communicate b/w each other, how do you have them
+discover whom to communicate with. And we have technologies which allow for that pattern like Eureka.
+-> Spring cloud uses Client Side Discovery (one of the types of Service Discovery). The technology SC (Spring Cloud) uses to integrate service discovery is Eureka.
+There are several other libraries which SB integrates with are Ribbon, Hysterix and Zuul and all these (including Eureka) are developed by Netflix Open Source.
+
+--> There are 2 types of Service Discovery: CLient Side and Server Side.
+
+Steps to use Eureka in SB
+. Start up a Eureka Server (acts as a server) (to create a Eureka server we just need to create SB project and add a dependency named 'Eureka Server').
+. Have microservices (act as clients) register (publish) using Eureka client.
+. Have microservices locate (consume) using Eureka client.
+. SB comes with two dependencies: whatever app you want as the Eureka Server we use 'Eureka Server' dependency, whatever app you want to do the discovery or to
+  publish or to tell the Eureka Server I am here use 'Eureka Client' dependency.
+
+. See application.properties: Add last two properties so that Eureka doesn't register with itself. Every Eureka Server is also a Eureka Client. When EurekaServer
+runs not only it provides registry, it also tries to register with other EurekaServers. You not only have multiple instances of microservices, you can also have
+multiple instances of EurekaServers and they can register with each other so that even if one server fails other server can still provide directory service. Add
+these two properties to tell EurekaServer to stop acting like a client, you are only here, there is no other server.
+
+Q) How EurekaClient find the EurekaServer for registration ?
+-> If EurekaServer is running on default port (8761) then EurekaClients will find the EurekaServer there and register themselves else we need to explicity tell
+the SC or SB that EurekaServer is running on this certain port in the application.properties file.

@@ -1,0 +1,17 @@
+Using Data Rest --->
+
+Advanced features of Spring Data Rest:
+. Pagination, sorting and searching
+. Extending and adding custom queries with JPQL
+. Query Domain Specific Laguage (Query DSL)
+
+. Spring Data Rest doen't handle complex pluralized forms like for 'Person', plural form is 'People'. In this case, we need to specify plural form.
+. What if we have Entity name = Employee but we want endpoint path with our choice (default will be 'employees'). We can do it by using @RepositoryRestResource(path="any_name")
+
+Pagination:
+. By default, Spring Data Rest will return the first 20 elements (so page size = 20).  
+. We can navigate to different pages using query param (pages are 0 based): http://localhost:8080/employees?page=2
+. We can set the properties like base-path, page size etc in application.properties
+
+Sorting:
+. We can sort by the property names of your entity. Ascending is default. Example: http://localhost:8080/employees?sort=lastName,firstName,desc (first by firstName then by lastName)

@@ -1,0 +1,6 @@
+Type : psql -U postgres
+
+Database commands
+\c database_name (to choose db)
+\d 	(After choosing db to see the relations)
+\d database_name

@@ -1,0 +1,7 @@
+Redis stands for Remote Dictionary Server. It is a non-sql db and uses data structures to store data: String, Lists, Sets, Sorted Sets, Hashes, bitmaps, hyperlogs
+and geopatial inexes. It is an in-memory db (with persistence options).
+
+Features:
+. Has a single text file for all configurations
+. Is single threaded - one action at a time
+. Pipelining (we can cluster multiple commands and send them at once)

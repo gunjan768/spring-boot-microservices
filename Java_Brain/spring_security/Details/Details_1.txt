@@ -1,0 +1,37 @@
+How authentication works in SS?
+--> It comprises of input and output where input is credentials and output is the information (principal) of the current logged in user. When SS performs authentication it keeps track
+of both input and the output using an object of type Authentication. Authentication is an internal SS interface and Authentication object (class which implements this interface) is
+meant to hold credentails before authentication and once the user is Authentication authenticated it holds the principal. We can think of Authentication as Data Transfer Object
+(DTO) for authentication. 
+
+AuthenticationProvider is responsible for doing the actual authentication. This is an interface which has a method called authenticate() and we need the implementation of this interface
+and tells SS about it and then SS calls this authenticate() method to authenticate the user. Say you enter your credentials (username and password) then SS will take your credentials
+and put it into an Authentication object and then goes to the implementation of this AuthenticationProvider interface and calls authenticate() method. The authenticate() method takes
+this credential as an argument and check it and then returns an object if authentication is successful which is of type Authentication. Now this instance of Authentication will
+hold the information of current principal.To check whether that Authentication instance contains the credential or principal we can use isAuthenticate() method which returns true if 
+authentication has been done.
+
+SS app can have multiple authentication providers (for example, password based, OAuth2 an so on). They all know how to work and all accept the Authentication instance as an argument.
+Then how they co-ordinate among themself without any interruption ? Because of AuthenticationManager. It has very similar interface which too has authenticate() method
+which takes an Authentication object and returns an Authentication object. There are several ways to implement AuthenticationManager but the common implementation is the
+ProviderManager i.e. ProviderManager implements AuthenticationManager and ProviderManager doesn't do any work by itself, it coordinates with different AuthenticationProvider
+depending upon the authenticate type. Say we want to login using OAuth2, then ProviderManager will ask each and every AuthenticationProviders that whether you contains
+OAuth2 or not (finds the right provider to do the job). To ask each AuthenticationProviders there is a method supports() other than authenticate() method in every
+AuthenticationProvider implementation which returns true if the asked AuthenticationProvider is the right AuthenticationProvider to do the job. supports() takes
+Authentication object as an argument.
+
+For every AuthenticationProvider to do their job, they need to retrieve the user information from the system (db) and then verify the credentail to check that the
+account is not locked, password is not expired etc. The only part that change is how AuthenticationProvider retrieve the information from the system. Thats why
+SS has an inbuilt interface called UserDetailsService. The service takes an username and it returns an object with the user details of type UserDetails. All information
+like username, password, account locked or not etc are all in this UserDetails object. Once this UserDetails object is returned, then AuthenticationProvider verify
+the credentails and do authenticate and if successful then the same UserDetails object is returned as a Principal object.
+
+Summary: Request is intecepted by Authentication filter and then it creates Authentication object which contains credentails and passes it to the AuthenticationManager
+and AuthenticationManager finds the right AuthenticationProvider that can handle the authentication using supports() method. Then the AuthenticationManager calls the
+authenticate() method on that AuthenticationProvider and passes the Authentication object. The AuthenticationProvider looks for the correspoding user in the system
+by using the UserDetailsService. UserDetailsService returns the UserDetails instance which then AuthenticationProvider verfies. Then the authentication object is
+returned back with the principal (if authentication is successful) to the Authentication filters. Principal is an instance (often) of the UserDetails.
+
+--> Then this principal is actually put into the security context in the ThreadLocal object for authorization. There is an another filter which takes an authenticated
+principal and associates it with the user session that's why you don't have to authenticate for every request. For every subsequent requests, this filter is also
+responsible for taking the context from the session and saving to the ThreadLocal again.

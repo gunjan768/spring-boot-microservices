@@ -1,0 +1,27 @@
+any:
+    connection: url_value
+    host: 127.0.0.1
+    port: 1200
+app:
+    description: Welcome to ${app.name}
+    name: Emilia Clarke
+dbValues: '{url: ''https\any_url.com'', userName: ''Mallika'', password: ''pass''}'
+
+management.endpoints.web.exposure.include: '*'
+
+my:
+    greeting: Hello World
+    list:
+        value: gunjan,mummy,bhaiya
+
+# By default this profile (application.properties) is active. But to change the profile we used the below property. We just need to add the profile
+# name (test) and not the whole application-test.properties (or .yml)
+#spring.profiles.active: test
+
+# Adding this property will tell this microservice that it needs to connect to config server which is running in URL mentioned.
+#spring.cloud.config.uri: http://localhost:8081
+
+spring.config.import: optional:configserver:http://localhost:8081/
+
+# Application name
+spring.application.name: microservice_1

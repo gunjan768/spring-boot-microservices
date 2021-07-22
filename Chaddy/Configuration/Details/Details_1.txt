@@ -1,0 +1,50 @@
+Bean Licfecycle Methods/Hooks:
+. You can custom code during bean intialization
+. You can add custom code during bean destruction
+
+. Simply define your methods for initialization and destroy and then all you do is you add annotations to those methods and the annotations are @PostConstruct for 
+initialization and @PreDestroy for destroy.
+
+Note: For "prototype" scoped beans, Spring does not call the @PreDestroy method
+
+# There are three ways of configuring Spring Container
+1) Full XML Config	2) XML Component Scan (<context:component-scan base-package="")		3) Java @Configuration annotation using Java class (no XML)
+
+# Spring container is generally known as ApplicationContext. Specialized implementations are: ClassPathXmlApplicationContext (for XML based configuration),
+AnnotationConfigApplicationContext, GenericWebApplicationContext, others... for ex: creating a spring container: 
+ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("x") where x = name of the XML configuration file name like applicationContext.xml. Now to
+retrieve bean from spring container: Coach coach = contextt.getBean("myCoach, Coach.class) where "myCoach" is the id and "Coach.class" is the class name.
+
+<bean id = "myCoach" class = "com.gunjan768.spring_demo.BaseBallCoach"> ..... BaseBallCoach is the implementation of the Coach interface.
+
+Q) How to do configuration when one instance depends on other ?
+-> <bean id = "myFortuneService" class = "...HappyFortuneService"> ... Behind the scenes: HappyFortuneService myFortuneService = new HappyFortuneService();
+</bean> ..... <bean id = "myCoach" class = "...BaseBallCoach"> <constructor-arg ref = "myFortuneService"/> </bean> ... Behind the scenes: BaseBallCoach myCoach = new
+BaseBallCoach(myFortuneService); It will use constructor injection. If wnat to use setter injection use <property name = "" ref = "" />. Note that "ref" represents
+the "id" of the bean which you want to inject. If property name = "heyBro" then spring will try to call a public setter method name = setHeyBro() {}
+
+Q) How to inject values to the properties of the class ?
+-> <bean id = "" class = ""> <property name = "emailAddress" value = "gunjan768@gmail.com" /> </bean>. Note that "ref" is used to inject instance of other class to
+this class but "value" is used for actual literal value ...... class XYZ { String emailAddress; } ........ To set the value to the properties, spring calls their
+setter method.
+
+Q) How to load properties from the Properties file ?
+-> sport.properties contents: foo.email=gunjan768@gmail.com
+Inside the applicationContext.xml file
+<beans> 
+    <context:property-placeholder location = "classpath:sport.properties" />
+    <bean> <property name = "emailAddress" value = "${foo.email}" /> </bean>
+</beans>
+
+Q) How to do component scanning to register all the beans which are annotated using annotations like @Component, @Bean etc ?
+-> <beans> <context:component-scan base-package = "com.gunjan768.spring_demo" /> </beans>. We are no longer required to write any more code in XML config file to
+for DI. Basically we make use of Java Annotations and avoided XML config file codes. Here spring will scan the whole package and search for the bean whenever we
+ask for the specific bean using: "Coach coach = contextt.getBean("myCoach, Coach.class)",  @Autowired etc. @ComponentScan() will only search for beans which are
+annotated with @Component and it's types (like @Service).
+
+Note: @Component("xyz") where "xyz" is the bean id. Now to get the bean, use the same bean id: ABC obj = context.getBean("xyz", ABC.class); We know that default
+bean id = className with lower case initial
+
+. . For field injection, Spring creates an object and automatically set the field behind the scenes, without going through any constructor or setter, by making use 
+of Java technology called Reflection. Even the field is private, it's value will be set using DI. First spring will the default constructor and then using the 
+Reflection, it will inject the dependency (of filed injection).

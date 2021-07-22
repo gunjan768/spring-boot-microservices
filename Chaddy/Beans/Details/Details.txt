@@ -1,0 +1,56 @@
+Aspect Oriented Programming (AOP): It allows to create these app wide services like logging, security, transactions, instrumentation etc.
+
+Bean Scopes
+. Scope refers to the lifecycle of a bean i.e. how long does the bean live. Default scope for bean is Singleton  
+. How many instances are created ? How is the bean shared ?
+
+Additional Spring Bean Scopes:
+
+Scope				Description
+
+1) Singleton			Create a single shared instance of the bean. Default scopes
+2) Prototype			Creates a new bean instance for each container request
+3) Request			Scoped to an HTTP web request. Only used for web apps
+4) Session			Scoped to an HTTP web session. Only used for web apps
+5) Global-Session		Scoped to an HTTP web global session. Only used for web apps
+
+Spring AutoWiring:
+. For DI, Spring can use AutoWiring. Spring will look for a class that matches the property and it matches by type: class or interface. Spring will inject it automatically.
+. There are various Autowiring Injection types: Constructor Injection, Setter Injection, Field Injections, Method Injection (you can write @Autowired above of any method and
+  it will work as DI)
+
+. Example for Injections:
+
+class A {
+	@Autowired
+	private B b;	// field injection
+	
+	private C c; private D d; private Apple apple;
+	
+	@Autowired	// Constructor injection
+	A(C c) {
+		this.c = c;	
+	}
+	
+	@Autowired	// Method injection
+	doCrazy(D d) {
+		this.d = d;
+	}	
+	
+	@Autowired	// Setter injection
+	setApple(Apple apple) {
+		this.apple = apple;
+	}
+}
+
+. For field injection, Spring creates an object and automatically set the field behind the scenes, without going through any constructor or setter, by making use of Java
+technology called Reflection. Even the field is private, it's value will be set using DI. 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Q) What if there are multiple Components which can provide our instance? Then Spring will choose which one ?
+--> In this case Spring will give you an error: Injection of autowired failed because of no unique bean definition found. So we need to tell Spring which bean to use. To
+tell which specific bean to use, we use @Qualifier annotation and mention the bean id: @Qualifier("bean_id"). Bean id = bean name = Same as class name with lowercase initial.
+
+Q) How can we have multiple Components to provide the bean ?
+--> By using the interface concept.

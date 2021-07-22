@@ -1,0 +1,45 @@
+There is not one definition of Microservice. Some of them are:
+. Microservices are small autonomous services that work together.
+. There is a bare minimum of centralized management of these services, which may be written in different programming languages and use different data storage
+technologies.
+
+Q) Problems while building microservices !!!
+. Bounded Context: How we decide the boundaries of each microservice. How much codes should be written in each microservice so that they are all work efficiently.
+It is a matter of knowledge and experience.
+. Confuguration Management: There are tons of configurations we need to work with (as we can have multiple instances of a microservice).
+. Dynamic Scale Up and Scale Down: Loads on different microservices will be different at different instances of time. I have x instance of microservice y, I might
+need z more instances of same microservice y in the future or I might bring down some instances of microservice y when load is low.
+. Visibilty: Functionalities are distributed among 10 microservices and there is a bug. So we need something like centralized log to see what happend with each
+request. We need to monitor the microservices. Which microservice is down or if there is not enought disk space, we need everything to be automated.
+. Pack of Cards: How to prevent one microservice being down taking down the entire app.
+
+. Spring Cloud Config provides server and client-side support for externalized configuration in a distributed system. With the Config Server you have a central place 
+to manage external properties for applications across all environments. It provides an approach where we can store all configuration for all the different environment
+of all the microservices in a Git repository.
+
+Solutions to above are:
+
+############################### Dynamic Scale Up and Scale Down
+. Naming Server (Eureka): All the instances of all microservices would register with Eureka. It has two important features: service registration so all microservices
+can register with the microservice. Second one is Service Discovery.
+. Ribbon is used for client side load balancing for older version of SC and for latest version use Spring Cloud LoadBalancer along with Feign.
+. Feign to easily  write Rest Clients (for calling apis).
+
+################################# Visibilty and Monitoring
+. Zipkin Distributed Tracing: We use SC Sloat to assign ID to request across multiple components and we would use Zipkin Distributed Tracing to trace a request
+across multiple components.
+. Netflix Zuul (Netflix API Gateway) which provides common features like logging, security, analytics for older version of SC, for latest version use SC Gateway
+. Hystrix for circuit breaker for older version, for latest use Resilience4j.
+Advantages of using Microservices:
+. We can use different languages for implementing different microservices.
+. Dynamic Scaling: Scale up load and scale down load based on loads.
+
+. Use Docker to containerize microservices (run microservices using Docker and Docker Compose)
+. Kubernetes to Orchestrate all your microservices.
+
+---> API Gateway: It is built on top of Spring WebFlux. Spring Cloud Gateway aims to provide a simple, yet effective way to route to APIs and provide cross cutting 
+concerns to them such as: security, monitoring/metrics, and resiliency. Spring Cloud Gateway features:
+. Built on Spring Framework 5, Project Reactor and Spring Boot 2.0              . Able to match routes on any request attribute.
+. Predicates and filters are specific to routes.                                . Circuit Breaker integration.         
+. Spring Cloud DiscoveryClient integration                                      . Easy to write Predicates and Filters          
+. Request Rate Limiting                                                         . Path Rewriting
